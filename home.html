@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css" />
+</head>
+
+<style>
+    body {
+        background-color: #f0f0f0;
+    }
+    .card {
+        margin-top: 30px;
+    }
+</style>
+
+<body>
+
+<!-- NAVIGATION BAR CONTAINER-->
+<div class="container">
+    <div class="d-flex justify-content-center">
+        <div class="col-9">
+            <nav class="navbar navbar-expand-lg bg-body-tertiary shadow rounded pt-3">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">Tarmeez</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Profile</a>
+                            </li>
+                        </ul>
+                        <div class="d-flex w-100 justify-content-end" id="login-btn">
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#loginModal" id="login"
+                                    class="btn btn-outline-success mx-2">Login
+                            </button>
+                            <button type="button" id="register" class="btn btn-outline-success">Register</button>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<!-- MAIN CONTENT-->
+<div class="container">
+    <div class="d-flex justify-content-center mt-5">
+        <div class="col-9">
+            <div id="posts">
+                <!-- POST-->
+                <div class="card shadow">
+                    <div class="card-header">
+                        <img src="https://variety.com/wp-content/uploads/2021/04/Avatar.jpg?w=800&h=533&crop=1"
+                             alt="" style="width: 40px; height: 40px;" class="rounded-circle border border-2">
+                        <b>@abdallah</b>
+                    </div>
+                    <div class="card-body">
+                        <img src="https://treesforall.nl/app/uploads/2022/03/Bos-Nederland-Epe-e1719389547661-0x835-c-default.webp"
+                             class="w-100" alt="">
+                        <h6 style="color: gray;" class="mt-2">2 Minutes Ago</h6>
+                        <h5>Hello world</h5>
+
+                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. A iure accusamus nisi illum porro
+                            esse molestiae tempora quaerat vitae, eaque commodi dolorem atque, similique qui
+                            repudiandae maiores dignissimos doloribus voluptate?</p>
+                        <hr>
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-pen" viewBox="0 0 16 16">
+                                <path
+                                    d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z"/>
+                            </svg>
+                            <span>(3) Comments</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- POST-->
+            </div>
+        </div>
+    </div>
+
+    <!-- LOGIN MODAL-->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" data-bs-backdrop="static"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Login</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="#" method="POST" id="loginForm">
+                    <div class="modal-body p-4 bg-light">
+                        <div class="row">
+                            <div class="col-lg">
+                                <label for="userName">User Name</label>
+                                <input type="text" name="userName" id="username-input" class="form-control"
+                                       placeholder="name" required>
+                            </div>
+                        </div>
+                        <div class="my-2">
+                            <label for="password">Password</label>
+                            <input type="password" name="password" id="password-input" class="form-control"
+                                   placeholder="password" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" id="loginSubmitBtn" onclick="loginBtnClicked()" class="btn btn-primary">Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- LOGIN MODAL-->
+</div>
+
+<!-- JavaScript -->
+<script src="node_modules/axios/dist/axios.min.js"></script>
+<script>
+    const baseUrl = "https://tarmeezacademy.com/api/v1";
+
+    axios.get(`${baseUrl}/posts`)
+        .then(function (response) {
+            console.log(response.data.data);
+
+            let posts = response.data.data;
+            let postsHtml = '';
+
+            for (post of posts) {
+                let userImage = post.author.profile_image;
+                let title = post.title;
+                let body = post.body;
+                let author = post.author.name;
+                let bodyImage = post.image;
+                let commentsCount = post.comments_count;
+                let createdAt = post.created_at;
+
+                postsHtml += `<div id="posts">
+                    <div class="card shadow">
+                        <div class="card-header">
+                            <img src="${userImage}" alt="" style="width: 40px; height: 40px;" class="rounded-circle border border-2">
+                            <b>${author}</b>
+                        </div>
+                        <div class="card-body">
+                            <img src="${bodyImage}" class="w-100" alt="">
+                            <h6 style="color: gray;" class="mt-2">${createdAt}</h6>
+                            <h5>${title}</h5>
+                            <p>${body}</p>
+                            <hr>
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-pen" viewBox="0 0 16 16">
+                                    <path
+                                        d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z"/>
+                                </svg>
+                                <span>(${commentsCount}) Comments</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+            }
+            document.getElementById("posts").innerHTML = postsHtml;
+        });
+
+    function loginBtnClicked() {
+        event.preventDefault();
+
+        let username = document.getElementById("username-input").value;
+        let password = document.getElementById("password-input").value;
+
+        let success = 200;
+        console.log(username, password);
+
+        axios.post(`${baseUrl}/login`, {
+            username: username,
+            password: password
+        })
+            .then(function (response) {
+                if(response.status == success){
+                    let token = response.data.token;
+                    localStorage.setItem('yourTokenKey', token); // Use setItem and specify a key
+                    console.log(response.data);
+                  const modal =   bootstrap.Modal.getInstance(document.getElementById('loginModal'));
+                  if(modal){
+                    modal.hide();
+                  }
+                 
+                  document.getElementById('login').style.display = 'none';
+                  document.getElementById('register').style.display = 'none';
+                  document.getElementById('login-btn').innerHTML = `
+                    <button type="button" id="logout" class="btn btn-outline-danger mx-2" onclick="logout()">Logout</button>
+                `;
+                }
+            })
+            .catch(function (error) {
+                console.error(error);
+            });
+
+
+    }
+
+
+    function logout() {
+   const loginBtn = document.getElementById('login');
+    const registerBtn = document.getElementById('register');
+    
+    if (loginBtn && registerBtn) {
+        loginBtn.style.display = 'block';
+        registerBtn.style.display = 'block';
+    }
+
+    // Hide the logout button
+    const logoutBtn = document.getElementById('logout');
+    if (logoutBtn) {
+        logoutBtn.remove();
+    }}
+
+</script>
+
+</body>
+</html>
