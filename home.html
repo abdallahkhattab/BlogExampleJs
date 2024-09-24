@@ -29,6 +29,33 @@
         cursor: pointer;
         box-shadow: 0px 10px 10px rgp(0,0,0,0.3);
     }
+
+    /* Center image and username properly */
+.navbar .logout-div .d-flex img {
+    width: 40px;
+    height: 40px;
+}
+
+#userName {
+    font-weight: bold;
+    color: #333; /* or any preferred color */
+    margin-left: 10px;
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+}
+
+/* Extra padding for better spacing */
+.navbar .logout-div {
+    align-items: center;
+}
+
+.navbar .logout-div .btn {
+    margin-left: 10px;
+}
+
 </style>
 
 <body>
@@ -46,50 +73,55 @@
 
                  <!-- ALERTS --> 
 
-            <nav class="navbar navbar-expand-lg bg-body-tertiary shadow rounded pt-3">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="#">Tarmeez</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="#">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Profile</a>
-                            </li>
-                        </ul>
+                 <nav class="navbar navbar-expand-lg bg-body-tertiary shadow rounded pt-3">
+                    <div class="container-fluid">
+                        <a class="navbar-brand" href="#">Tarmeez</a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarNav">
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Profile</a>
+                                </li>
+                            </ul>
+                
+                            <!-- FOR NON-LOGGED IN USER-->
+                            <div class="d-flex w-100 justify-content-end" id="login-div">
+                                <button type="button" data-bs-toggle="modal" data-bs-target="#loginModal" id="login"
+                                        class="btn btn-outline-success mx-2">Login
+                                </button>
+                                <button type="button" id="register" data-bs-toggle="modal" data-bs-target="#registerModal" 
+                                        class="btn btn-outline-success">Register</button>
+                            </div>
+                
+                            <!-- FOR LOGGED IN USER-->
+                            <div class="d-flex w-100 justify-content-end align-items-center" id="logout-div" style="display: none;">
+                                <div class="d-flex align-items-center" id="userImageDiv">
+                                    <img id = "profile_image_user"src=""
+                                        alt="User Avatar" class="rounded-circle border border-2 me-2" style="width: 40px; height: 40px;">
+                                </div>
+                                <span id="userName" class="fw-bold text-dark me-4">Username</span>
 
-                        <!-- FOR NON-LOGGES IN USER-->
-                        <div class="d-flex w-100 justify-content-end" id="login-div">
-                            <button type="button" data-bs-toggle="modal" data-bs-target="#loginModal" id="login"
-                                    class="btn btn-outline-success mx-2">Login
-                            </button>
-                            <button type="button" id="register" data-bs-toggle="modal" data-bs-target="#registerModal" class="btn btn-outline-success">Register</button>
+                                <button type="button" onclick="logout()" data-bs-toggle="modal" id="logout-btn"
+                                        class="btn btn-outline-danger mx-2">Logout
+                                </button>
+                            </div>
                         </div>
-                        <!-- FOR NON-LOGGES IN USER-->
-
-                        <!-- LOGGED IN USER-->
-
-                        <div class="d-flex w-100 justify-content-end" id="logout-div">
-                            <button type="button" onclick="logout()" data-bs-toggle="modal"  id="logout-btn"
-                                    class="btn btn-outline-danger mx-2">Logout
-                            </button>
-                        </div>
-
                     </div>
-                </div>
-            </nav>
+                </nav>
+                
         </div>
     </div>
 </div>
 
 <!-- MAIN CONTENT-->
 <div class="container">
-    <div class="d-flex justify-content-center mt-5">
+    <div class="d-flex justify-content-center mt-5" id="postscontainer">
         <div class="col-9">
             <div id="posts">
                 <!-- POST-->
@@ -101,14 +133,13 @@
                     </div>
                     <div class="card-body">
                         <img src="https://treesforall.nl/app/uploads/2022/03/Bos-Nederland-Epe-e1719389547661-0x835-c-default.webp"
-                             class="w-100" style="height: 100px; width: 100px;" alt="">
+                             class="w-100 img-fluid" style="max-height: 400px; object-fit: cover;" alt="Post Image">
                         <h6 style="color: gray;" class="mt-2">2 Minutes Ago</h6>
                         <h5>Hello world</h5>
-
                         <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. A iure accusamus nisi illum porro
                             esse molestiae tempora quaerat vitae, eaque commodi dolorem atque, similique qui
                             repudiandae maiores dignissimos doloribus voluptate?</p>
-                        <hr>
+                        <hr> 
                         <div>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-pen" viewBox="0 0 16 16">
@@ -118,11 +149,19 @@
                             <span>(3) Comments</span>
                         </div>
                     </div>
+                    
                 </div>
                 <!-- POST-->
             </div>
         </div>
     </div>
+  <!-- LOAD POSTS-->
+  <div id="posts-container"></div>
+  <div id="loading" style="text-align: center; display: none;">
+      <p>Loading...</p>
+  </div>
+  <!-- LOAD POSTS-->
+   
 
     <!-- LOGIN MODAL-->
     <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" data-bs-backdrop="static"
@@ -182,6 +221,11 @@
                         <div class="my-2">
                             <label for="password">Password</label>    
                             <input type="password" name="password" id="registerPassword" class="form-control" placeholder="password" value="123456" required>
+                        </div>
+
+                        <div class="my-2">
+                            <label for="image">user image</label>    
+                            <input type="file" name="image" id="registerUserInput" class="form-control" placeholder="password" value="" required>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -247,113 +291,170 @@
 <!-- JavaScript -->
 <script src="node_modules/axios/dist/axios.min.js"></script>
 <script>
-    const baseUrl = "https://tarmeezacademy.com/api/v1";
+
+
+        
+    let baseUrl = "https://tarmeezacademy.com/api/v1";
+    let currentPage = 1;
+    const limit = 5;  // Number of posts to load at a time
+    let isLoading = false; // To prevent multiple calls during scroll
+
+
 
     setupUi();
 
-//posts
-    axios.get(`${baseUrl}/posts?limit=10`)
+
+// Function to fetch and display posts
+function loadPosts(page) {
+    isLoading = true;
+    document.getElementById('loading').style.display = 'block';  // Show loading spinner
+    
+    axios.get(`${baseUrl}/posts?limit=${limit}&page=${page}`)
         .then(function (response) {
             console.log(response.data.data);
 
             let posts = response.data.data;
             let postsHtml = '';
 
-            for (post of posts) {
-                let userImage = post.author.profile_image;
-                let title = post.title;
-                let body = post.body;
-                let author = post.author.name;
-                let bodyImage = post.image;
-                let commentsCount = post.comments_count;
+            for (let post of posts) {
+                let userImage = post.author.profile_image || 'default-user.png';  // Fallback image if none
+                let title = post.title || '';
+                let body = post.body || '';
+                let author = post.author.name || 'Anonymous';
+                let bodyImage = post.image || 'default-post.png';  // Fallback image if none
+                let commentsCount = post.comments_count || 0;
                 let createdAt = post.created_at;
-                let tags = post.tags;
+                let tags = post.tags || [];
 
-                postsHtml += `<div id="posts">
-                    <div class="card shadow">
-                        <div class="card-header">
-                            <img src="${userImage}" alt="" style="width: 40px; height: 40px;" class="rounded-circle border border-2">
-                            <b>${author}</b>
+                // Create HTML for a single post with controlled image sizes
+                postsHtml += `
+                <div class="post mb-4">
+                    <div class="card shadow" style="max-width: 600px; margin: auto;">
+                        <div class="card-header d-flex align-items-center">
+                            <img src="${userImage}" alt="User" style="width: 40px; height: 40px;" class="rounded-circle border border-2">
+                            <b class="ms-2">@${author}</b>
                         </div>
-                        <div class="card-body" class="w-50 h-50">
-                            <img src="${bodyImage}" class="w-100"  alt="">
-                            <h6 style="color: gray;" class="mt-2">${createdAt}</h6>
+                        <div class="card-body">
+                            <div style="max-width: 100%; overflow: hidden;">
+                                <img src="${bodyImage}" class="w-100 img-fluid" style="max-height: 400px; object-fit: cover;" alt="Post Image">
+                            </div>
+                            <h6 class="text-muted mt-2">${createdAt}</h6>
                             <h5>${title}</h5>
                             <p>${body}</p>
                             <hr>
                             <div>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                     class="bi bi-pen" viewBox="0 0 16 16">
-                                    <path
-                                        d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z"/>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+                                    <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z"/>
                                 </svg>
-                                <span>(${commentsCount}) Comments 
-                                    
-                               <span id="post-tags">
-                                <button class="btn btn-sm rounded-5" style="background-color: gray; color: white;">tags</button>
-                                </span>
-
-                                    </span>
+                                <span>(${commentsCount}) Comments</span>
+                            </div>
+                            <div class="mt-2" id="post-tags-${post.id}">
+                                ${tags.map(tag => `<button class="btn btn-sm rounded-5 me-1" style="background-color: gray; color: white;">${tag.name}</button>`).join('')}
                             </div>
                         </div>
                     </div>
                 </div>`;
-
-
-                document.getElementById("posts").innerHTML = postsHtml;
-            document.getElementById("post-tags").innerHTML= "";
-
-            for(tag of post.tags){
-                console.log(tag.name);
-
-                let tagsContent = `<button class="btn btn-sm rounded-5" style="background-color: gray; color: white;">${tag.name}</button>
-`;
-                       document.getElementById("post-tags").innerHTML= tagsContent;
-
-
             }
 
-            }
+            // Append the posts content once, after the loop
+            document.getElementById('posts').innerHTML = " ";
 
 
+            document.getElementById('posts-container').innerHTML += postsHtml;
+
+            isLoading = false;  // Reset loading status
+            document.getElementById('loading').style.display = 'none';  // Hide loading spinner
+        })
+        .catch(function (error) {
+            console.error('Error fetching posts:', error);
+            document.getElementById('loading').style.display = 'none';  // Hide loading spinner
+            isLoading = false;
         });
+}
 
+
+
+// Infinite scroll event listener
+window.addEventListener('scroll', () => {
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100 && !isLoading) {
+        // User is near the bottom of the page and we are not already loading posts
+        currentPage++;
+        loadPosts(currentPage);
+    }
+});
+
+// Initial load
+loadPosts(currentPage);
+
+        // This function will run every time the page loads
+window.onload = function() {
+    // Retrieve the user data from localStorage
+    const user = JSON.parse(localStorage.getItem("user"));
+    
+    if (user) {
+        // Display the username
+        document.getElementById('userName').textContent = user.name;
+        
+        // Display the profile image
+        const profileImage = user.profile_image; // Ensure the image path is correct
+        document.getElementById('userImageDiv').innerHTML = `
+            <img id="profile_image_user" src="${profileImage}" 
+            alt="User Avatar" class="rounded-circle border border-2 me-2" style="width: 40px; height: 40px;">`;
+    }
+};
 
         //REGISTER
+        function registerBtnClicked() {
+    const username = document.getElementById('registerUserName').value;
+    const name = document.getElementById('registerName').value;
+    const password = document.getElementById('registerPassword').value;
+    const image = document.getElementById('registerUserInput').files[0];  // This gets the uploaded image file
 
-        function registerBtnClicked(){
+    // Create a FormData object and append form fields
+    const formData = new FormData();
+    formData.append('username', username);
+    formData.append('name', name);
+    formData.append('password', password);
+    formData.append('image', image);  // Make sure to append with the correct key 'profile_image'
 
-            const username = document.getElementById('registerUserName').value;
-            const name = document.getElementById('registerName').value;
-            const password = document.getElementById('registerPassword').value;
+    // Axios POST request to register
+    axios.post(`${baseUrl}/register`, formData)
+        .then(function (response) {
+            console.log(response.data);
 
-            axios.post( `${baseUrl}/register`, {
-                
-                username: username,
-                name:name,
-                password: password
-            })
-            .then(function (response) {
-                console.log(response);
-                localStorage.setItem('token', response.data.token); 
-                localStorage.setItem("user", JSON.stringify(response.data.user));
-                const modal = bootstrap.Modal.getInstance(document.getElementById('registerModal'));
-                const message ="User created Successfully";
-                  showSuccessAlert(message);
-                  setupUi();
-                  if(modal){
-                    modal.hide();
-                  }
-            })
-            .catch(function (error) {
+            // Store token and user data in local storage
+            localStorage.setItem('token', response.data.token);
+            localStorage.setItem('user', JSON.stringify(response.data.user));  // Save user data correctly
 
-                const message = error.response.data.message;
-                console.log(error);
-                showDangerAlert(message);
-            });
+            // Extract the username and profile image from the response
+            let user = response.data.user;
+            let profileImage = user.profile_image;
 
+            // Set the image and display the username
+            document.getElementById('userImageDiv').innerHTML = `
+                <img id="profile_image_user" src="${profileImage}" 
+                alt="User Avatar" class="rounded-circle border border-2 me-2" style="width: 40px; height: 40px;">`;
 
-        }
+            // Display the username
+            document.getElementById('userName').textContent = user.username;
+
+            // Close the registration modal and show a success alert
+            const modal = bootstrap.Modal.getInstance(document.getElementById('registerModal'));
+            const message = "User created successfully";
+            showSuccessAlert(message);
+            setupUi();
+
+            if (modal) {
+                modal.hide();
+            }
+        })
+        .catch(function (error) {
+            const message = error.response?.data?.message || "An error occurred";
+            console.log(error);
+            showDangerAlert(message);
+        });
+}
+
 
 
         // add post
@@ -411,13 +512,7 @@
         // Insert the new post into the DOM without refresh
         document.getElementById("posts").insertAdjacentHTML('afterbegin', postsHtml);
 
-        // Handle tags dynamically if available
-        const postTagsContainer = document.getElementById(`post-tags-${post.id}`);
-        post.tags.forEach(tag => {
-            let tagHtml = `<button class="btn btn-sm rounded-5" style="background-color: gray; color: white;">${tag.name}</button>`;
-            postTagsContainer.insertAdjacentHTML('beforeend', tagHtml);
-        });
-
+  
         // Close the modal and clear the form
         const modal = bootstrap.Modal.getInstance(document.getElementById('addPostModal'));
         if (modal) modal.hide();
@@ -465,9 +560,7 @@ axios.post(`${baseUrl}/posts`, formData, {
 
         console.error(error);
     });
-
-    
-        
+          
 //LOGIN
 
     function loginBtnClicked() {
@@ -489,6 +582,23 @@ axios.post(`${baseUrl}/posts`, formData, {
                     let token = response.data.token;
                     localStorage.setItem('token', token); 
                     localStorage.setItem("user", JSON.stringify(response.data.user));
+                    const name = response.data.user.username;
+            let profileImage = response.data.user.profile_image;
+            document.getElementById('userImageDiv').innerHTML = `<img id = "profile_image_user"src="${profileImage}"
+ alt="User Avatar" class="rounded-circle border border-2 me-2" style="width: 40px; height: 40px;">
+`;
+
+document.getElementById('userName').textContent = name;
+
+            console.log(profileImage);
+
+            // Set the image and display the username
+             // Set the image in the DOM
+
+
+
+
+                    document.getElementById('userName').innerHTML= response.data.user.username;
 
                     console.log(response.data);
                   const modal = bootstrap.Modal.getInstance(document.getElementById('loginModal'));
@@ -541,8 +651,7 @@ const appendAlert = (message, type) => {
 
     }
 
-
-    function showDangerAlert(message){
+function showDangerAlert(message){
 const alertPlaceholder = document.getElementById('dangerAlert')
 const appendAlert = (message, type) => {
   const wrapper = document.createElement('div')
@@ -561,14 +670,13 @@ const appendAlert = (message, type) => {
 
     }
 
-
-
 function setupUi() {
 
     const token = localStorage.getItem("token");
     const loginDiv = document.getElementById('login-div');
     const logoutBtn = document.getElementById('logout-div');
     const addPost = document.getElementById('add-btn');
+    const userName = document.getElementById('userName');
 
 
     if(token == null){
@@ -576,14 +684,14 @@ function setupUi() {
         loginDiv.style.setProperty("display","block","important");
         logoutBtn.style.setProperty("display","none","important");
         addPost.style.setProperty("display","none","important");
+        userName.style.setProperty("display","none","important");
 
 
     }else{
         loginDiv.style.setProperty("display","none","important");
         logoutBtn.style.setProperty("display","flex","important");
         addPost.style.setProperty("display","block","important");
-
-
+        userName.style.setProperty("display","flex","important");
     }
     // Hide the logout button
   }
@@ -594,6 +702,12 @@ function setupUi() {
     showDangerAlert();
     setupUi();
   }
+
+  /*
+  function displayUserName(name){
+   
+        document.getElementById('userName').textContent = name;
+  }*/
 
 </script>
 
