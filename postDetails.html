@@ -1,72 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css" />
-</head>
-
-<style>
-    body {
-        background-color: #f0f0f0;
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css" />
+    </head>
+    
+    <style>
+        body {
+            background-color: #f0f0f0;
+        }
+        .card {
+            margin-top: 30px;
+        }
+    
+        #add-btn{
+            position: fixed;
+            bottom: 5%;
+            right: 7%;
+            height: 70px;
+            width: 70px;
+            color: white;
+            font-size: 50px;
+            border-radius: 100px;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 0px 10px 10px rgp(0,0,0,0.3);
+        }
+    
+        /* Center image and username properly */
+    .navbar .logout-div .d-flex img {
+        width: 40px;
+        height: 40px;
     }
-    .card {
-        margin-top: 30px;
+    
+    #userName {
+        font-weight: bold;
+        color: #333; /* or any preferred color */
+        margin-left: 10px;
     }
-
-    #add-btn{
-        position: fixed;
-        bottom: 5%;
-        right: 7%;
-        height: 70px;
-        width: 70px;
-        color: white;
-        font-size: 50px;
-        border-radius: 100px;
-        text-align: center;
-        cursor: pointer;
-        box-shadow: 0px 10px 10px rgp(0,0,0,0.3);
+    
+    .card-header {
+        display: flex;
+        align-items: center;
     }
-
-    /* Center image and username properly */
-.navbar .logout-div .d-flex img {
-    width: 40px;
-    height: 40px;
-}
-
-#userName {
-    font-weight: bold;
-    color: #333; /* or any preferred color */
-    margin-left: 10px;
-}
-
-.card-header {
-    display: flex;
-    align-items: center;
-}
-
-/* Extra padding for better spacing */
-.navbar .logout-div {
-    align-items: center;
-}
-
-.navbar .logout-div .btn {
-    margin-left: 10px;
-}
-
-.card-body{
-    cursor: pointer;
-}
-
-</style>
+    
+    /* Extra padding for better spacing */
+    .navbar .logout-div {
+        align-items: center;
+    }
+    
+    .navbar .logout-div .btn {
+        margin-left: 10px;
+    }
+    
+    </style>
 
 <body>
-
-    
-
-<!-- NAVIGATION BAR CONTAINER-->
 <div class="container">
     <div class="d-flex justify-content-center">
         <div class="col-9">
@@ -95,7 +87,7 @@
                             </ul>
                 
                             <!-- FOR NON-LOGGED IN USER-->
-                            <div class="d-flex w-100 justify-content-end" id="login-div" onclick="">
+                            <div class="d-flex w-100 justify-content-end" id="login-div">
                                 <button type="button" data-bs-toggle="modal" data-bs-target="#loginModal" id="login"
                                         class="btn btn-outline-success mx-2">Login
                                 </button>
@@ -130,12 +122,12 @@
             <div id="posts">
                 <!-- POST-->
                 <div class="card shadow">
-                    <div class="card-header">
+                    <div class="card-header d-flex align-items-center">
                         <img src="https://variety.com/wp-content/uploads/2021/04/Avatar.jpg?w=800&h=533&crop=1"
-                             alt="" style="width: 40px; height: 40px;" class="rounded-circle border border-2">
+                             alt="" style="width: 40px; height: 40px;" class="rounded-circle border border-2 me-2">
                         <b>@abdallah</b>
                     </div>
-                    <div class="card-body" id="post-div" onclick="RedirectToPostDetails();">
+                    <div class="card-body">
                         <img src="https://treesforall.nl/app/uploads/2022/03/Bos-Nederland-Epe-e1719389547661-0x835-c-default.webp"
                              class="w-100 img-fluid" style="max-height: 400px; object-fit: cover;" alt="Post Image">
                         <h6 style="color: gray;" class="mt-2">2 Minutes Ago</h6>
@@ -143,22 +135,57 @@
                         <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. A iure accusamus nisi illum porro
                             esse molestiae tempora quaerat vitae, eaque commodi dolorem atque, similique qui
                             repudiandae maiores dignissimos doloribus voluptate?</p>
-                        <hr> 
-                        <div>
+                        <hr>
+                        <div class="d-flex align-items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                 class="bi bi-pen" viewBox="0 0 16 16">
+                                 class="bi bi-pen me-2" viewBox="0 0 16 16">
                                 <path
                                     d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z"/>
                             </svg>
                             <span>(3) Comments</span>
                         </div>
                     </div>
-                    
+                    <div class="card-footer">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Add a comment..." aria-label="Comment" aria-describedby="button-addon2">
+                            <button class="btn btn-outline-secondary" type="button" id="button-addon2">Post</button>
+                        </div>
+                        <div id="comments">
+                            <!-- Fake comment 1 -->
+                            <div class="d-flex align-items-center mb-2">
+                                <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="User Profile Picture"
+                                     class="rounded-circle border border-2 me-2" style="width: 40px; height: 40px;">
+                                <div>
+                                    <b>@john_doe</b>
+                                    <p class="m-0">Great post! Really insightful.</p>
+                                </div>
+                            </div>
+                            <!-- Fake comment 2 -->
+                            <div class="d-flex align-items-center mb-2">
+                                <img src="https://randomuser.me/api/portraits/women/2.jpg" alt="User Profile Picture"
+                                     class="rounded-circle border border-2 me-2" style="width: 40px; height: 40px;">
+                                <div>
+                                    <b>@jane_smith</b>
+                                    <p class="m-0">I love this picture!</p>
+                                </div>
+                            </div>
+                            <!-- Fake comment 3 -->
+                            <div class="d-flex align-items-center mb-2">
+                                <img src="https://randomuser.me/api/portraits/men/3.jpg" alt="User Profile Picture"
+                                     class="rounded-circle border border-2 me-2" style="width: 40px; height: 40px;">
+                                <div>
+                                    <b>@alex_brown</b>
+                                    <p class="m-0">Keep up the great work!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <!-- POST-->
             </div>
         </div>
     </div>
+</div>
   <!-- LOAD POSTS-->
   <div id="posts-container"></div>
   <div id="loading" style="text-align: center; display: none;">
@@ -288,235 +315,120 @@
 
 
 </div>
-
-   
-
-
-<!-- JavaScript -->
-<script src="node_modules/axios/dist/axios.min.js"></script>
-<script src="./mainLogic.js"></script>
-
-<script>
-    let currentPage = 1;
-    const limit = 5;  // Number of posts to load at a time
-    let isLoading = false; // To prevent multiple calls during scroll
-
-
-
-    setupUi();
-
-
-// Function to fetch and display posts
-function loadPosts(page) {
-    isLoading = true;
-    document.getElementById('loading').style.display = 'block';  // Show loading spinner
     
-    axios.get(`${baseUrl}/posts?limit=${limit}&page=${page}`)
-        .then(function (response) {
-            console.log(response.data.data);
+    <script src="./mainLogic.js"></script>
+    <script src="./node_modules/axios/dist/axios.min.js"></script>
 
-            let posts = response.data.data;
-            let postsHtml = '';
-
-            for (let post of posts) {
-                let userImage = post.author.profile_image || 'default-user.png';  // Fallback image if none
-                let title = post.title || '';
-                let body = post.body || '';
-                let author = post.author.name || 'Anonymous';
-                let bodyImage = post.image || 'default-post.png';  // Fallback image if none
-                let commentsCount = post.comments_count || 0;
-                let createdAt = post.created_at;
-                let tags = post.tags || [];
-
-                // Create HTML for a single post with controlled image sizes
-                postsHtml += `
-                <div class="post mb-4">
-                    <div class="card shadow" style="max-width: 600px; margin: auto;">
-                        <div class="card-header d-flex align-items-center">
-                            <img src="${userImage}" alt="User" style="width: 40px; height: 40px;" class="rounded-circle border border-2">
-                            <b class="ms-2">@${author}</b>
-                        </div>
-                        <div class="card-body" onclick="RedirectToPostDetails(${post.id})">  <!-- Pass post.id here -->
-                            <div style="max-width: 100%; overflow: hidden;">
-                                <img src="${bodyImage}" class="w-100 img-fluid" style="max-height: 400px; object-fit: cover;" alt="Post Image">
-                            </div>
-                            <h6 class="text-muted mt-2">${createdAt}</h6>
-                            <h5>${title}</h5>
-                            <p>${body}</p>
-                            <hr>
-                            <div>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
-                                    <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z"/>
-                                </svg>
-                                <span>(${commentsCount}) Comments</span>
-                            </div>
-                            <div class="mt-2" id="post-tags-${post.id}">
-                                ${tags.map(tag => `<button class="btn btn-sm rounded-5 me-1" style="background-color: gray; color: white;">${tag.name}</button>`).join('')}
-                            </div>
-                        </div>
-                    </div>
-                </div>`;
+    <script src="./mainLogic.js"></script>
+    <script src="./node_modules/axios/dist/axios.min.js"></script>
+    
+    <script>
+        (function() {
+            const postDetails = "https://tarmeezacademy.com/api/v1";
+            
+            setupUi();
+    
+            function getQueryParameter(name) {
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get(name);
             }
-
-            // Append the posts content once, after the loop
-            document.getElementById('posts').innerHTML = " ";
-            document.getElementById('posts-container').innerHTML += postsHtml;
-
-            isLoading = false;  // Reset loading status
-            document.getElementById('loading').style.display = 'none';  // Hide loading spinner
-        })
-        .catch(function (error) {
-            console.error('Error fetching posts:', error);
-            document.getElementById('loading').style.display = 'none';  // Hide loading spinner
-            isLoading = false;
-        });
-}
-
-
-
-// Infinite scroll event listener
-window.addEventListener('scroll', () => {
-    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100 && !isLoading) {
-        // User is near the bottom of the page and we are not already loading posts
-        currentPage++;
-        loadPosts(currentPage);
-    }
-});
-
-// Initial load
-loadPosts(currentPage);
-
-
-
-
-        // add post
-
-        function submitPost() {
-    const title = document.getElementById('postTitle').value;
-    const body = document.getElementById('postBody').value;
-    const image = document.getElementById('postImage').files[0];
-    const token = localStorage.getItem('token');
-
-    let formData = new FormData();
-    formData.append('title', title);
-    formData.append('body', body);
-    formData.append('image', image);
-
-    event.preventDefault();
-
-    axios.post(`${baseUrl}/posts`, formData, {
-        headers: {
-            'Content-Type': "multipart/form-data",
-            'Authorization': `Bearer ${token}`, // Send the token in Authorization header
-        }
-    })
-    .then(function (response) {
-        const post = response.data.data;  // Assuming the new post data is returned here
-
-        // Add the new post dynamically to the posts list
-        let postsHtml = `
-        <div id="posts">
-            <div class="card shadow">
-                <div class="card-header">
-                    <img src="${post.author.profile_image}" alt="" style="width: 40px; height: 40px;" class="rounded-circle border border-2">
-                    <b>${post.author.name}</b>
-                </div>
-                <div class="card-body" class="w-50 h-50">
-                    <img src="${post.image}" class="w-100" alt="">
-                    <h6 style="color: gray;" class="mt-2">${post.created_at}</h6>
-                    <h5>${post.title}</h5>
-                    <p>${post.body}</p>
-                    <hr>
-                    <div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
-                            <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z"/>
-                        </svg>
-                        <span>(${post.comments_count}) Comments 
-                            <span id="post-tags-${post.id}">
-                                <button class="btn btn-sm rounded-5" style="background-color: gray; color: white;">tags</button>
-                            </span>
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>`;
-
-        // Insert the new post into the DOM without refresh
-        document.getElementById("posts").insertAdjacentHTML('afterbegin', postsHtml);
-
-  
-        // Close the modal and clear the form
-        const modal = bootstrap.Modal.getInstance(document.getElementById('addPostModal'));
-        if (modal) modal.hide();
-
-        document.getElementById('postTitle').value = '';
-        document.getElementById('postBody').value = '';
-        document.getElementById('postImage').value = '';
-    })
-    .catch(function (error) {
-        console.error(error);
-    });
-}
-    const title = document.getElementById('postTitle').value;
-    const body = document.getElementById('postBody').value;
-    const image = document.getElementById('postImage').files[0];
-    const token = localStorage.getItem('token');
-
-    let formData = new FormData();
-    formData.append('title', title);
-    formData.append('body', body);
-    formData.append('image', image);
-
-let success = 200;
-
-axios.post(`${baseUrl}/posts`, formData, {
-            headers: {
-                'Content-Type' : "multipart/form-data",
-                'Authorization': `Bearer ${token}`, // Send the token in Authorization header
-                
+    
+            // Fetch the post ID from the URL
+            const postId = getQueryParameter('id');
+            if (!postId) {
+                console.error("Post ID is missing in the URL.");
+                document.getElementById('posts').innerHTML = "<p>Invalid post ID.</p>";
+                return;
             }
-        })
-    .then(function (response) {
-            const modal = bootstrap.Modal.getInstance(document.getElementById('addPostModal'));
-            let message = "Post added successfully!";
-           // showSuccessAlert(message);
-           setupUi();
-          if(modal){
-            modal.hide();
-          }
-         
-        
-        
-    })
-    .catch(function (error) {
-
-        console.error(error);
-    });
-          
-  /*
-  function displayUserName(name){
-   
-        document.getElementById('userName').textContent = name;
-  }*/
-
-let postDiv = document.getElementById("card-body");
-
-
-
-  function RedirectToPostDetails(postId){
-
-    console.log('clicked');
-    window.location.href = `file:///C:/Users/VICTUS/Desktop/JavaScript%20Api/final%20project/postDetails.html?id=${postId}`; // replace with your desired URL
-
-  }
-
-
-
- 
-
-</script>
-
-
+    
+            console.log(postId);
+    
+            function getPostDetails() {
+                document.getElementById('loading').style.display = 'block'; // Show loading indicator
+    
+                axios.get(`${postDetails}/posts/${postId}`)
+                    .then(function(response) {
+                        document.getElementById('loading').style.display = 'none'; // Hide loading indicator
+    
+                        const postsContainer = document.getElementById('posts');
+                        postsContainer.innerHTML = ""; // Clear previous posts
+    
+                        const responsePost = response.data.data;
+    
+                        if (!responsePost) {
+                            postsContainer.innerHTML = "<p>No post found.</p>";
+                            return;
+                        }
+    
+                        const title = responsePost.title || "No Title";
+                        const body = responsePost.body || "No body content.";
+                        const postImage = responsePost.image || "default_image_url.jpg"; // Fallback image
+                        const authorName = responsePost.author?.name || "Unknown Author";
+                        const authorImage = responsePost.author?.profile_image || "default_profile_image.jpg";
+    
+                        const comments = responsePost.comments || [];
+                        const commentsCount = responsePost.comments_count || 0;
+                        const createdPost = responsePost.created_at || "Date not available";
+    
+                        const tags = responsePost.tags || [];
+                        const tagsHTML = tags.length > 0 
+                            ? tags.map(tag => `<span class="badge bg-info text-dark me-1">${tag.arabic_name} (${tag.name})</span>`).join('') 
+                            : "<p>No Tags</p>";
+    
+                        const commentsHTML = comments.length > 0 
+                            ? comments.map(comment => `
+                                <div class="d-flex align-items-center mb-2">
+                                    <img src="${comment.author.profile_image}" alt="User Profile Picture"
+                                         class="rounded-circle border border-2 me-2" style="width: 40px; height: 40px;">
+                                    <div>
+                                        <b>@${comment.author.username}</b>
+                                        <p class="m-0">${comment.body}</p>
+                                    </div>
+                                </div>`).join('') 
+                            : "<p>No Comments</p>";
+    
+                        postsContainer.innerHTML = `
+                            <div class="card shadow">
+                                <div class="card-header d-flex align-items-center">
+                                    <img src="${authorImage}" alt="" style="width: 40px; height: 40px;" class="rounded-circle border border-2 me-2">
+                                    <b>${authorName}</b>
+                                </div>
+                                <div class="card-body">
+                                    <img src="${postImage}" class="w-100 img-fluid" style="max-height: 400px; object-fit: cover;" alt="Post Image">
+                                    <h6 style="color: gray;" class="mt-2">${createdPost}</h6>
+                                    <h5>${title}</h5>
+                                    <p>${body}</p>
+                                    <hr>
+                                    <div class="d-flex align-items-center">
+                                        <span class="me-2">${commentsCount} Comments</span>
+                                        ${tagsHTML}
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" placeholder="Add a comment..." aria-label="Comment" aria-describedby="button-addon2">
+                                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Post</button>
+                                    </div>
+                                    <div id="comments">
+                                        ${commentsHTML}
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    })
+                    .catch(function(error) {
+                        document.getElementById('loading').style.display = 'none'; // Hide loading indicator
+                        console.error("Error fetching post details:", error);
+                        document.getElementById('posts').innerHTML = "<p>Error fetching post details. Please try again later.</p>";
+                    });
+            }
+    
+            getPostDetails();
+    
+        })();
+    </script>
+    
+    
+    
 </body>
 </html>
- 
