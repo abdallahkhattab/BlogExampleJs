@@ -147,8 +147,8 @@
                     </div>
                     <div class="card-footer">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="Add a comment..." aria-label="Comment" aria-describedby="button-addon2">
-                            <button class="btn btn-outline-secondary" type="button" id="button-addon2">Post</button>
+                            <input type="text" class="form-control"id="comm-input" placeholder="Add a comment..." aria-label="Comment" aria-describedby="button-addon2" value="      ">
+                            <button class="btn btn-outline-secondary" type="button" id="comment-btn">Comment</button>
                         </div>
                         <div id="comments">
                             <!-- Fake comment 1 -->
@@ -321,20 +321,21 @@
 
     <script src="./mainLogic.js"></script>
     <script src="./node_modules/axios/dist/axios.min.js"></script>
-    
+ 
+
+
+
     <script>
-        (function() {
-            const postDetails = "https://tarmeezacademy.com/api/v1";
+                    let postDetails = "https://tarmeezacademy.com/api/v1";
+
+          (function() {
             
             setupUi();
     
-            function getQueryParameter(name) {
-                const urlParams = new URLSearchParams(window.location.search);
-                return urlParams.get(name);
-            }
+       
     
             // Fetch the post ID from the URL
-            const postId = getQueryParameter('id');
+            let postId = getQueryParameter('id');
             if (!postId) {
                 console.error("Post ID is missing in the URL.");
                 document.getElementById('posts').innerHTML = "<p>Invalid post ID.</p>";
@@ -406,8 +407,8 @@
                                 </div>
                                 <div class="card-footer">
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control" placeholder="Add a comment..." aria-label="Comment" aria-describedby="button-addon2">
-                                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Post</button>
+                                        <input type="text" class="form-control" id="comm-input" placeholder="Add a comment..." aria-label="Comment" aria-describedby="comment-input" value=''>
+                                        <button class="btn btn-outline-secondary" type="button" id="comment-btn" onClick='addComment()'>Post</button>
                                     </div>
                                     <div id="comments">
                                         ${commentsHTML}
@@ -424,10 +425,132 @@
             }
     
             getPostDetails();
-    
+
+
+        
+ 
+
         })();
-    </script>
+
+
+        function getQueryParameter(name) {
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get(name);
+            }
+        
+         // Function to show alert
+         function addComment() {
+
+document.getElementById('comment-btn').addEventListener('click', function() {
+    // Get the value from the comment input field
+    const commentInputValue = document.getElementById('comm-input').value;
     
+    let postId = getQueryParameter('id');
+    if (!postId) {
+        console.error("Post ID is missing in the URL.");
+        document.getElementById('posts').innerHTML = "<p>Invalid post ID.</p>";
+        return;
+    }
+
+    console.log(postId);
+    console.log(commentInputValue);
+
+    // Optional: Clear the input field after posting
+    document.getElementById('comm-input').value = '';
+
+    let token = localStorage.getItem('token');
+    if (!token) {
+        console.error("Token is missing.");
+        return;
+    }
+    console.log(token);
+
+    axios.post(`${postDetails}/posts/${postId}/comments`, {
+        post_id: postId,
+        body: commentInputValue
+    }, {
+        headers: {
+            Authorization: 'Bearer ' + token // Attach token correctly
+        }
+    })
+    .then(function(response) {
+        console.log(response.data);
+
+        // Display the comment without refreshing
+        appendCommentToDOM(response.data);
+
+    })
+    .catch(function(error) {
+        console.error("Error:", error.response ? error.response.data : error.message);
+    });
+});
+}
+
+// Function to append comment to the DOM
+function appendCommentToDOM(comment) {
+const commentSection = document.getElementById('comments-section'); // Assuming you have a section for comments
+
+// Create a new comment div
+let newCommentDiv = document.createElement('div');
+newCommentDiv.classList.add('comment'); // Add a class for styling if needed
+
+// Populate the comment div with data (customize this structure based on your needs)
+newCommentDiv.innerHTML = `
+    <p><strong>${comment.user.name}</strong></p>
+    <p>${comment.body}</p>
+    <p class="comment-time">${new Date(comment.created_at).toLocaleString()}</p>
+`;
+
+// Append the new comment to the comment section
+commentSection.appendChild(newCommentDiv);
+}
+
+let commentBtn = document.getElementById('comment-btn').addEventListener('click', function() {
+    // Get the value from the comment input field
+    const commentInputValue = document.getElementById('comm-input').value;
+    
+    let postId = getQueryParameter('id');
+    if (!postId) {
+        console.error("Post ID is missing in the URL.");
+        document.getElementById('posts').innerHTML = "<p>Invalid post ID.</p>";
+        return;
+    }
+
+    console.log(postId);
+    console.log(commentInputValue);
+
+    // Optional: Clear the input field after posting
+    document.getElementById('comm-input').value = '';
+
+    let token = localStorage.getItem('token');
+    if (!token) {
+        console.error("Token is missing.");
+        return;
+    }
+    console.log(token);
+
+    // Correct the comment body
+    axios.post(`${postDetails}/posts/${postId}/comments`, {
+        post_id: postId,
+        body: commentInputValue // Ensure you are sending the input value
+    }, {
+        headers: {
+            Authorization: 'Bearer ' + token // Attach token correctly
+        }
+    })
+    .then(function(response) {
+        console.log(response.data);
+    })
+    .catch(function(error) {
+        console.error("Error:", error.response ? error.response.data : error.message);
+    });
+});
+
+
+        
+    // Add event listener for the button with ID 'comment-btn'
+   
+    </script>
     
     
 </body>
